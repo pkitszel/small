@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# this is *example* of producing .config suited to your needs, without need for full kernel .config storage (in repo)
+
+
+KERNEL_OPTIONS+=(
+	"ARCH=arm64"
+	"CROSS_COMPILE=aarch64-linux-gnu-"
+	"LOCALVERSION=-imx"
+)
+
+make-our-conf(){
+	make "${KERNEL_OPTIONS[@]}" defconfig
+	tee -a .config < ../packages/linux-imx/debian/defconfig
+	make "${KERNEL_OPTIONS[@]}" olddefconfig
+}
+
+# main
+
+# ensure that make will be called from toplevel directory
+"$(git rev-parse --git-dir)"/..
+
+make-our-conf >/dev/null 2>/dev/null # make .config, but avoid screen-fulls of clutter
