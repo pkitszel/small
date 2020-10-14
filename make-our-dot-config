@@ -18,6 +18,6 @@ make-our-conf(){
 # main
 
 # ensure that make will be called from toplevel directory
-"$(git rev-parse --git-dir)"/..
+cd "$(git rev-parse --git-dir)"/..
 
 make-our-conf >/dev/null 2>/dev/null # make .config, but avoid screen-fulls of clutter
