@@ -1,5 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
+# copy/link this file as "git-continue" to get analogous continue utility
+
+opt="${0/*-/}"
 gitdir="$(git rev-parse --git-dir)" || exit
 opfound=
 fcnt=
@@ -10,8 +13,8 @@ for i in cherry-pick merge rebase; do
 done
 
 if [ "${fcnt}" != 1 ]; then
-  echo "I don't know what to abort" >&2
+  echo "I don't know what to $opt" >&2
   exit 1
 fi
 
-git "${opfound}" --abort
+git "${opfound}" --"$opt"
