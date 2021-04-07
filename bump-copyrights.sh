@@ -9,7 +9,7 @@ git-touched-files(){
 	} | sort -u
 }
 
-branch=${1:-master}
+branch=${1:-origin/master}
 cd "$(git rev-parse --show-toplevel)" || exit
 
 git-touched-files |
